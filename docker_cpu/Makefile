@@ -9,6 +9,7 @@ run:
 		--platform linux/amd64 \
 		-e AWS_PROFILE=$${AWS_PROFILE:-testing} \
 		-e PYTHONUNBUFFERED=1 \
+                -p 5000:5000 \
 		--rm \
 		-v `pwd`/../:/gfpgan/ \
 		-v ~/.aws/:/root/.aws/:ro\
@@ -20,6 +21,7 @@ interactive:
 		-it \
 		-e AWS_PROFILE=$${AWS_PROFILE:-testing} \
 		-e PYTHONUNBUFFERED=1 \
+                -p 5000:5000 \
 		--rm \
 		-v `pwd`/../:/gfpgan/ \
 		-v ~/.aws/:/root/.aws/:ro\

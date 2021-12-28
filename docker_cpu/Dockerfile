@@ -27,3 +27,8 @@ RUN pip install --no-cache-dir -r /gfpgan/requirements.txt
 
 # Credentials used for downloading data.
 VOLUME /root/.aws
+
+WORKDIR /gfpgan/api/
+
+EXPOSE 5000
+CMD bash run_api.sh
