@@ -3,6 +3,7 @@ import glob
 import numpy as np
 import os
 import sys
+import requests
 import torch
 from basicsr.utils import imwrite
 
@@ -11,10 +12,19 @@ sys.path.insert(1, main_dir_path)
 
 from gfpgan import GFPGANer
 
-print(main_dir_path + '/experiments/pretrained_models/GFPGANCleanv1-NoCE-C2.pth')
+def download_weights():
+    weights_files = ['https://github.com/TencentARC/GFPGAN/releases/download/v0.2.0/GFPGANCleanv1-NoCE-C2.pth',
+                     'https://github.com/TencentARC/GFPGAN/releases/download/v0.1.0/GFPGANv1.pth',
+                     'https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth']
+    for url in weights_files:
+        response = requests.get(url)
+        if response.status_code == 200:
+            with open(main_dir_path + '/experiments/pretrained_models/', 'wb') as f:
+                f.write(response.content)
+        else:
+            print('weight file {url} does not exist'.format(url = url))
 
 def prepare_data():
-    mode = os.getenv('environment')
 
     conf = {'upscale': 2, # The final upsampling scale of the image
             'arch': 'clean', # The GFPGAN architecture. Option: clean | original
