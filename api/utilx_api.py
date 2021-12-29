@@ -17,12 +17,17 @@ def download_weights():
                      'https://github.com/TencentARC/GFPGAN/releases/download/v0.1.0/GFPGANv1.pth',
                      'https://github.com/xinntao/facexlib/releases/download/v0.1.0/detection_Resnet50_Final.pth']
     for url in weights_files:
-        response = requests.get(url)
-        if response.status_code == 200:
-            with open(main_dir_path + '/experiments/pretrained_models/', 'wb') as f:
-                f.write(response.content)
+        filename = url.split('/')[-1]
+        if not os.path.exists(main_dir_path + '/experiments/pretrained_models/' + filename):
+            response = requests.get(url)
+            if response.status_code == 200:
+                print('started downloading {filename}'.format(filename = filename))
+                with open(main_dir_path + '/experiments/pretrained_models/' + filename, 'wb') as f:
+                    f.write(response.content)
+            else:
+                print('weight file {url} does not exist'.format(url = url))
         else:
-            print('weight file {url} does not exist'.format(url = url))
+            print('file {file} exist !'.format(file = main_dir_path + '/experiments/pretrained_models/' + filename))
 
 def prepare_data():
 

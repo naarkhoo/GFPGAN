@@ -9,8 +9,11 @@ from basicsr.utils import imwrite
 
 main_dir_path = "/".join(os.getcwd().split("/")[:-1])
 sys.path.insert(1, main_dir_path)
-os.mkdir(main_dir_path + '/results')
 
+if not os.path.exists(main_dir_path + '/results'):
+    os.mkdir(main_dir_path + '/results')
+
+utilx_api.download_weights()
 conf, restorer = utilx_api.prepare_data()
 print('required files are loaded')
 
