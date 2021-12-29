@@ -25,9 +25,6 @@ RUN wget https://github.com/TencentARC/GFPGAN/releases/download/v0.2.0/GFPGANCle
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r /gfpgan/requirements.txt
 
-# Credentials used for downloading data.
-VOLUME /root/.aws
-
 WORKDIR /gfpgan/api/
 
 EXPOSE 5000
